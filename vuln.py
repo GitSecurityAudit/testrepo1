@@ -1,12 +1,13 @@
 import os
-# Mock vulnerability: Hardcoded secret
-API_KEY = "abc123xyz789secret"
+from flask import Flask, request
 
-# Mock vulnerability: Insecure deserialization
-import pickle
-def load_data(file):
-    return pickle.load(file)  # Insecure deserialization
+app = Flask(__name__)
 
-# Mock vulnerability: SQL injection
-def query_user(user_input):
-    return f"SELECT * FROM users WHERE id = {user_input}"  # SQL injection
+@app.route('/ping', methods=['GET'])
+def ping():
+    host = request.args.get('host')
+    os.system(f"ping -c 1 {host}")
+    return f"Pinging {host}..."
+
+if __name__ == '__main__':
+    app.run()
