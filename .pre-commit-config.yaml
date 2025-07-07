@@ -1,0 +1,11 @@
+
+repos:
+  - repo: local
+    hooks:
+      - id: trufflehog
+        name: trufflehog pre-commit scan
+        entry: trufflehog
+        language: system
+        args: ["filesystem", "--fail", "--json"]
+        pass_filenames: true
+        types: [file]
